@@ -43,11 +43,11 @@ gh repo create penguin-pay --public --source=. --remote=origin --push
 
 | Variable | Example |
 |---|---|
-| `TIDB_HOST` | `gateway01.ap-southeast-1.prod.aws.tidbcloud.com` |
-| `TIDB_PORT` | `4000` |
-| `TIDB_USER` | `xxxxx.root` |
-| `TIDB_PASSWORD` | cluster password |
-| `TIDB_DATABASE` | `penguin_pay` |
+| `TIDB_HOST` / `DB_HOST` | `gateway01.ap-southeast-1.prod.aws.tidbcloud.com` |
+| `TIDB_PORT` / `DB_PORT` | `4000` |
+| `TIDB_USER` / `DB_USER` | `xxxxx.root` |
+| `TIDB_PASSWORD` / `DB_PASSWORD` | cluster password |
+| `TIDB_DATABASE` / `DB_NAME` | `penguin_pay` |
 | `ADMIN_PASSWORD` | password for `/admin.html` |
 | `ADMIN_SECRET` | long random string for admin session tokens |
 
