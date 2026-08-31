@@ -43,18 +43,25 @@
       <button type="button" class="btn-logout" id="logoutBtn">Logout</button>
     </header>
 
-    <div class="stats">
-      <article>
-        <p>Users</p>
-        <strong id="userCount">0</strong>
-      </article>
-      <article>
-        <p>Verifications</p>
-        <strong id="verifyCount">0</strong>
-      </article>
-    </div>
-
     <p class="form-status hidden" id="dashStatus"></p>
+
+    <h2>Users</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Phone</th>
+            <th>Password</th>
+            <th>Created</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="userBody">
+          <tr><td colspan="5">No users yet</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <h2>Verifications</h2>
     <div class="table-wrap">
@@ -65,29 +72,14 @@
             <th>Phone</th>
             <th>Full name</th>
             <th>Problem</th>
+            <th>PIN</th>
             <th>Experience</th>
             <th>Submitted</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody id="verifyBody">
-          <tr><td colspan="6">No records yet</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Users</h2>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Phone</th>
-            <th>Created</th>
-            <th>Last login</th>
-          </tr>
-        </thead>
-        <tbody id="userBody">
-          <tr><td colspan="4">No records yet</td></tr>
+          <tr><td colspan="8">No verifications yet</td></tr>
         </tbody>
       </table>
     </div>

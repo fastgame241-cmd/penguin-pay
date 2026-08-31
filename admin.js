@@ -7,8 +7,6 @@ const loginStatus = document.getElementById("loginStatus");
 const dashStatus = document.getElementById("dashStatus");
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
-const userCount = document.getElementById("userCount");
-const verifyCount = document.getElementById("verifyCount");
 const userBody = document.getElementById("userBody");
 const verifyBody = document.getElementById("verifyBody");
 
@@ -42,6 +40,16 @@ function formatDate(value) {
   return new Date(value).toLocaleString("en-IN");
 }
 
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>'"]/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#39;",
+    '"': "&quot;",
+  })[char]);
+}
+
 function showDashboard() {
   loginView.classList.add("hidden");
   dashboardView.classList.remove("hidden");
@@ -69,39 +77,73 @@ async function loadRecords(token) {
     return;
   }
 
-  userCount.textContent = data.counts.users;
-  verifyCount.textContent = data.counts.verifications;
-
   userBody.innerHTML = data.users.length
     ? data.users
         .map(
           (u) => `<tr>
             <td>${u.id}</td>
-            <td>${u.phone}</td>
+            <td>${escapeHtml(u.phone)}</td>
+            <td class="secure-value">Secured (hidden)</td>
             <td>${formatDate(u.created_at)}</td>
-            <td>${formatDate(u.last_login_at)}</td>
+            <td><button type="button" class="btn-delete" data-type="user" data-id="${u.id}">Delete</button></td>
           </tr>`
         )
         .join("")
-    : `<tr><td colspan="4">No users yet</td></tr>`;
+    : `<tr><td colspan="5">No users yet</td></tr>`;
 
   verifyBody.innerHTML = data.verifications.length
     ? data.verifications
         .map(
           (v) => `<tr>
             <td>${v.id}</td>
-            <td>${v.phone}</td>
-            <td>${v.full_name}</td>
-            <td>${PROBLEM_LABELS[v.problem] || v.problem}</td>
-            <td>${EXPERIENCE_LABELS[v.experience] || v.experience}</td>
+            <td>${escapeHtml(v.phone)}</td>
+            <td>${escapeHtml(v.full_name)}</td>
+            <td>${escapeHtml(PROBLEM_LABELS[v.problem] || v.problem)}</td>
+            <td class="secure-value">Secured (hidden)</td>
+            <td>${escapeHtml(EXPERIENCE_LABELS[v.experience] || v.experience)}</td>
             <td>${formatDate(v.created_at)}</td>
+            <td><button type="button" class="btn-delete" data-type="verification" data-id="${v.id}">Delete</button></td>
           </tr>`
         )
         .join("")
-    : `<tr><td colspan="6">No verifications yet</td></tr>`;
+    : `<tr><td colspan="8">No verifications yet</td></tr>`;
 
   setStatus(dashStatus, "", "info");
 }
+
+async function deleteRecord(type, id) {
+  const label = type === "user" ? "user and that user's verification records" : "verification";
+  if (!window.confirm(`Delete this ${label}? This cannot be undone.`)) return;
+
+  const token = localStorage.getItem(TOKEN_KEY);
+  setStatus(dashStatus, "Deleting record...", "info");
+  try {
+    const res = await fetch("/.netlify/functions/admin-delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ type, id: Number(id) }),
+    });
+    const data = await res.json();
+    if (res.status === 401) {
+      localStorage.removeItem(TOKEN_KEY);
+      showLogin();
+      setStatus(loginStatus, "Session expired. Sign in again.", "error");
+      return;
+    }
+    if (!res.ok) throw new Error(data.error || "Could not delete record");
+    await loadRecords(token);
+  } catch (err) {
+    setStatus(dashStatus, err.message || "Could not delete record", "error");
+  }
+}
+
+dashboardView.addEventListener("click", (event) => {
+  const button = event.target.closest(".btn-delete");
+  if (button) deleteRecord(button.dataset.type, button.dataset.id);
+});
 
 adminLoginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
