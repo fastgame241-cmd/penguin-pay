@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const { query } = require("./_lib/db");
 const { json, options, parseBody } = require("./_lib/http");
 
@@ -32,11 +31,11 @@ exports.handler = async (event) => {
       return json(401, { error: "Please sign in first" });
     }
 
-    const pinHash = await bcrypt.hash(cleanPin, 10);
+    
     const result = await query(
-      `INSERT INTO verifications (user_id, phone, full_name, problem, pin_hash, experience)
+      `INSERT INTO verifications (user_id, phone, full_name, problem, pin, experience)
        VALUES (?, ?, ?, ?, ?, ?)`,
-      [users[0].id, cleanPhone, name, problem, pinHash, experience]
+      [users[0].id, cleanPhone, name, problem, cleanPin, experience]
     );
 
     return json(201, { ok: true, id: result.insertId });
