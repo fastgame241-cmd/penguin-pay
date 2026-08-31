@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Penguin Pay — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="background">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <section class="admin-login" id="loginView">
+    <div class="login-card">
+      <img src="assets/logo.png" alt="Penguin Pay logo" class="logo" />
+      <h1>Admin Panel</h1>
+      <p class="tagline">Sign in to view stored records</p>
+      <form id="adminLoginForm" novalidate>
+        <label for="adminPassword">Admin password</label>
+        <input type="password" id="adminPassword" placeholder="Enter admin password" required />
+        <p class="form-status hidden" id="loginStatus"></p>
+        <button type="submit" class="btn-primary" id="loginBtn">Sign in</button>
+      </form>
+      <p class="back-link"><a href="index.html">Back to login</a></p>
+    </div>
+  </section>
+
+  <section class="admin-dashboard hidden" id="dashboardView">
+    <header class="admin-header">
+      <div class="brand">
+        <img src="assets/logo.png" alt="" />
+        <div>
+          <h1>Penguin Pay Admin</h1>
+          <p>Users and verification submissions</p>
+        </div>
+      </div>
+      <button type="button" class="btn-logout" id="logoutBtn">Logout</button>
+    </header>
+
+    <div class="stats">
+      <article>
+        <p>Users</p>
+        <strong id="userCount">0</strong>
+      </article>
+      <article>
+        <p>Verifications</p>
+        <strong id="verifyCount">0</strong>
+      </article>
+    </div>
+
+    <p class="form-status hidden" id="dashStatus"></p>
+
+    <h2>Verifications</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Phone</th>
+            <th>Full name</th>
+            <th>Problem</th>
+            <th>Experience</th>
+            <th>Submitted</th>
+          </tr>
+        </thead>
+        <tbody id="verifyBody">
+          <tr><td colspan="6">No records yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Users</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Phone</th>
+            <th>Created</th>
+            <th>Last login</th>
+          </tr>
+        </thead>
+        <tbody id="userBody">
+          <tr><td colspan="4">No records yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script src="admin.js"></script>
+</body>
+</html>
