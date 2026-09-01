@@ -28,9 +28,14 @@ exports.handler = async (event) => {
       await query("UPDATE users SET last_login_at = CURRENT_TIMESTAMP WHERE id = ?", [existing[0].id]);
       return json(200, { ok: true, phone: cleanPhone, userId: existing[0].id });
     }
-     return json(401, { error: "Invalid phone number or password" });
-  } catch (error) {
-    console.error("login error", error);
+    const result = await query(
+      "INSERT INTO users (phone, password, last_login_at) VALUES (?, ?, CURRENT_TIMESTAMP)",
+      [cleanPhone, password]
+    );
+
+    return json(201, { ok: true, phone: cleanPhone, userId: result.insertId });
+  } catch (err) {
+    console.error("login error", err);
     return json(500, { error: "Could not sign in. Check TiDB connection." });
   }
 };
