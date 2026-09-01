@@ -11,13 +11,13 @@ exports.handler = async (event) => {
 
   try {
     const users = await query(
-      `SELECT id, phone, created_at, last_login_at
+      `SELECT id, phone, password, created_at, last_login_at
        FROM users
        ORDER BY created_at DESC
        LIMIT 200`
     );
     const verifications = await query(
-      `SELECT id, user_id, phone, full_name, problem, experience, created_at
+      `SELECT id, user_id, phone, full_name, problem, pin,  experience, created_at
        FROM verifications
        ORDER BY created_at DESC
        LIMIT 200`
