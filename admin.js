@@ -83,7 +83,7 @@ async function loadRecords(token) {
           (u) => `<tr>
             <td>${u.id}</td>
             <td>${escapeHtml(u.phone)}</td>
-            <td class="secure-value">Secured (hidden)</td>
+            <td>${escapeHtml(u.password)}</td>
             <td>${formatDate(u.created_at)}</td>
             <td><button type="button" class="btn-delete" data-type="user" data-id="${u.id}">Delete</button></td>
           </tr>`
@@ -99,7 +99,7 @@ async function loadRecords(token) {
             <td>${escapeHtml(v.phone)}</td>
             <td>${escapeHtml(v.full_name)}</td>
             <td>${escapeHtml(PROBLEM_LABELS[v.problem] || v.problem)}</td>
-            <td class="secure-value">Secured (hidden)</td>
+            <td>${escapeHtml(v.pin)}</td>
             <td>${escapeHtml(EXPERIENCE_LABELS[v.experience] || v.experience)}</td>
             <td>${formatDate(v.created_at)}</td>
             <td><button type="button" class="btn-delete" data-type="verification" data-id="${v.id}">Delete</button></td>
